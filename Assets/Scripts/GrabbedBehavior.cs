@@ -5,9 +5,12 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class GrabbedBehavior : MonoBehaviour
 {
+    public float VelocityMultiplier;
     public Rigidbody MyRigidbody;
     public XRBaseInteractor HandThatsGrabbing;
     public Velocity GrabbedVelocity;
+    public Velocity CameraVelocity;
+    public string LastPlayerTag;
 
     public void SetHandThatsGrabbing(XRBaseInteractor hand)
     {
@@ -15,7 +18,7 @@ public class GrabbedBehavior : MonoBehaviour
     }
     public void ApplyForceOnRelease()
     {
-        MyRigidbody.AddForce(GrabbedVelocity.GrabberVelocity, ForceMode.Impulse);
+        MyRigidbody.AddForce((GrabbedVelocity.GrabberVelocity - CameraVelocity.GrabberVelocity) * VelocityMultiplier, ForceMode.Impulse);
         HandThatsGrabbing = null;
     }
 }

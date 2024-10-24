@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class Velocity : MonoBehaviour
 {
-    public float VelocityMultiplier;
     public Vector3 GrabberVelocity;
     
     private Vector3 lastFramePosition;
 
     private void LateUpdate()
     {
-        GrabberVelocity = (transform.position - lastFramePosition) * VelocityMultiplier;
+        GrabberVelocity = transform.position - lastFramePosition;
         lastFramePosition = transform.position;
     }
 }
