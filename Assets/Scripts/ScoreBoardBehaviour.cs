@@ -8,6 +8,7 @@ public class ScoreBoardBehaviour : MonoBehaviour
 {
     public TextMeshProUGUI PlayerOneScoreText;
     public TextMeshProUGUI PlayerTwoScoreText;
+    public AudioSource SoundEffect;
 
     private int playerOneScore;
     private int playerTwoScore;
@@ -23,6 +24,7 @@ public class ScoreBoardBehaviour : MonoBehaviour
 
     public void PlayerScored(string tag)
     {
+        SoundEffect.Play();
         if(tag == "Player1")
         {
             PlayerTwoOnAStreak = false;
