@@ -6373,18 +6373,8 @@ MonoBehaviour:
   Response:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 976111366}
-        m_TargetAssemblyTypeName: PlayerTracking, Assembly-CSharp
-        m_MethodName: PlayerJoined
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: PlayerJoinedBehaviour, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      - {m_Target: {fileID: 976111366}, m_TargetAssemblyTypeName: PlayerTracking, Assembly-CSharp, m_MethodName: PlayerJoined, m_Mode: 2, m_Arguments: {m_ObjectArgument: {fileID: 0}, m_ObjectArgumentAssemblyTypeName: PlayerJoinedBehaviour, Assembly-CSharp, m_IntArgument: 0, m_FloatArgument: 0, m_StringArgument: , m_BoolArgument: 0}, m_CallState: 2}
+    m_CallsDirty: 1
 --- !u!4 &977438504 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -7942014532100279500, guid: dccd4ebe2ff998c4585ee48c0c782e0b, type: 3}

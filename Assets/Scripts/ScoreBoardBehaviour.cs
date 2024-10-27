@@ -2,6 +2,7 @@ using Normal.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Transactions;
 using TMPro;
 using UnityEngine;
 
@@ -14,17 +15,28 @@ public class ScoreBoardBehaviour : RealtimeComponent<ScoreSyncModel>
     //private int playerOneScore;
     //private int playerTwoScore;
 
-    private bool PlayerOneOnAStreak;
-    private bool PlayerTwoOnAStreak;
+    //private bool PlayerOneOnAStreak;
+    //private bool PlayerTwoOnAStreak;
 
     protected override void OnRealtimeModelReplaced(ScoreSyncModel previousModel, ScoreSyncModel currentModel)
     {
-        if(currentModel != null)
+        if (currentModel != null)
         {
+            if (previousModel != null)
+            {
+                previousModel.playerOneScoreDidChange -= PlayerOneScoreChanged;
+                previousModel.playerTwoScoreDidChange -= PlayerTwoScoreChanged;
+            }
+             
             if(currentModel.isFreshModel)
             {
                 currentModel.playerOneScore = model.playerOneScore;
                 currentModel.playerTwoScore = model.playerTwoScore;
+                currentModel.playerOneOnAStreak = model.playerOneOnAStreak;
+                currentModel.playerTwoOnAStreak = model.playerTwoOnAStreak;
+            
+                currentModel.playerOneScoreDidChange += PlayerOneScoreChanged;
+                currentModel.playerTwoScoreDidChange += PlayerTwoScoreChanged;
             }
         }
     }
@@ -33,15 +45,25 @@ public class ScoreBoardBehaviour : RealtimeComponent<ScoreSyncModel>
     {
         PlayerOneScoreText.text = model.playerOneScore.ToString();
         PlayerTwoScoreText.text = model.playerTwoScore.ToString();
+        model.playerOneScoreDidChange += PlayerOneScoreChanged;
+        model.playerTwoScoreDidChange += PlayerTwoScoreChanged;
+    }
+
+    private void PlayerOneScoreChanged(ScoreSyncModel model, int value)
+    {
+        SoundEffect.Play();
+    }
+    private void PlayerTwoScoreChanged(ScoreSyncModel model, int value)
+    {
+        SoundEffect.Play();
     }
 
     public void PlayerScored(string tag)
     {
-        SoundEffect.Play();
         if(tag == "Player1")
         {
-            PlayerTwoOnAStreak = false;
-            if(PlayerOneOnAStreak)
+            model.playerTwoOnAStreak = false;
+            if(model.playerOneOnAStreak)
             {
                 model.playerOneScore += 2;
             }
@@ -50,12 +72,12 @@ public class ScoreBoardBehaviour : RealtimeComponent<ScoreSyncModel>
                 model.playerOneScore += 1;
             }
 
-            PlayerOneOnAStreak = true;
+            model.playerOneOnAStreak = true;
         }
         else if(tag == "Player2")
         {
-            PlayerOneOnAStreak = false;
-            if(PlayerTwoOnAStreak)
+            model.playerOneOnAStreak = false;
+            if(model.playerTwoOnAStreak)
             {
                 model.playerTwoScore += 2;
             }
@@ -64,7 +86,7 @@ public class ScoreBoardBehaviour : RealtimeComponent<ScoreSyncModel>
                 model.playerTwoScore += 1;
             }
 
-            PlayerTwoOnAStreak = true;
+            model.playerTwoOnAStreak = true;
         }
     }
 }

@@ -10,4 +10,8 @@ public partial class ScoreSyncModel
     private int _playerOneScore;
     [RealtimeProperty(2, true, true)]
     private int _playerTwoScore;
+    [RealtimeProperty(3, true, true)]
+    private bool _playerOneOnAStreak;
+    [RealtimeProperty(4, true, true)]
+    private bool _playerTwoOnAStreak;
 }
