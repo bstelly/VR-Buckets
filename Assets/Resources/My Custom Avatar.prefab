@@ -191,6 +191,7 @@ GameObject:
   - component: {fileID: 6244979307199670213}
   - component: {fileID: 29726559010132644}
   - component: {fileID: 6694030004236095364}
+  - component: {fileID: 6496066845689471482}
   m_Layer: 0
   m_Name: My Custom Avatar
   m_TagString: Untagged
@@ -280,6 +281,18 @@ MonoBehaviour:
   _syncScale: 1
   _syncVelocity: 1
   _maintainOwnershipWhileSleeping: 0
+--- !u!114 &6496066845689471482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5948687280285096103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a2233cb0fe5fc541b9d26be2b1f8038, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7037981822807139830
 GameObject:
   m_ObjectHideFlags: 0

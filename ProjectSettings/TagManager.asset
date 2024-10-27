@@ -10,6 +10,9 @@ TagManager:
   - Player3
   - Player4
   - Ball
+  - PlayerTracker
+  - LeftGrabber
+  - RightGrabber
   layers:
   - Default
   - TransparentFX

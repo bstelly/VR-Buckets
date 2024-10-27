@@ -1,3 +1,4 @@
+using Normal.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class GrabbedBehavior : MonoBehaviour
 {
+    public RealtimeTransform Realtime;
     public float VelocityMultiplier;
     public Rigidbody MyRigidbody;
     public XRBaseInteractor HandThatsGrabbing;
@@ -14,6 +16,8 @@ public class GrabbedBehavior : MonoBehaviour
 
     public void SetHandThatsGrabbing(XRBaseInteractor hand)
     {
+        Realtime.ClearOwnership();
+        Realtime.RequestOwnership();
         HandThatsGrabbing = hand;
     }
     public void ApplyForceOnRelease()

@@ -1,25 +1,38 @@
+using Normal.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
 
-public class ScoreBoardBehaviour : MonoBehaviour
+public class ScoreBoardBehaviour : RealtimeComponent<ScoreSyncModel>
 {
     public TextMeshProUGUI PlayerOneScoreText;
     public TextMeshProUGUI PlayerTwoScoreText;
     public AudioSource SoundEffect;
 
-    private int playerOneScore;
-    private int playerTwoScore;
+    //private int playerOneScore;
+    //private int playerTwoScore;
 
     private bool PlayerOneOnAStreak;
     private bool PlayerTwoOnAStreak;
 
+    protected override void OnRealtimeModelReplaced(ScoreSyncModel previousModel, ScoreSyncModel currentModel)
+    {
+        if(currentModel != null)
+        {
+            if(currentModel.isFreshModel)
+            {
+                currentModel.playerOneScore = model.playerOneScore;
+                currentModel.playerTwoScore = model.playerTwoScore;
+            }
+        }
+    }
+
     void Update()
     {
-        PlayerOneScoreText.text = playerOneScore.ToString();
-        PlayerTwoScoreText.text = playerTwoScore.ToString();
+        PlayerOneScoreText.text = model.playerOneScore.ToString();
+        PlayerTwoScoreText.text = model.playerTwoScore.ToString();
     }
 
     public void PlayerScored(string tag)
@@ -30,9 +43,13 @@ public class ScoreBoardBehaviour : MonoBehaviour
             PlayerTwoOnAStreak = false;
             if(PlayerOneOnAStreak)
             {
-                playerOneScore += 2;
+                model.playerOneScore += 2;
             }
-            playerOneScore += 1;
+            else
+            {
+                model.playerOneScore += 1;
+            }
+
             PlayerOneOnAStreak = true;
         }
         else if(tag == "Player2")
@@ -40,9 +57,13 @@ public class ScoreBoardBehaviour : MonoBehaviour
             PlayerOneOnAStreak = false;
             if(PlayerTwoOnAStreak)
             {
-                playerTwoScore += 2;
+                model.playerTwoScore += 2;
             }
-            playerTwoScore += 1;
+            else
+            {
+                model.playerTwoScore += 1;
+            }
+
             PlayerTwoOnAStreak = true;
         }
     }

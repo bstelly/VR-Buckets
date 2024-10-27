@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class PlayerJoinedBehaviour : MonoBehaviour
 {
-    public PlayerTracking PlayerTracker;
-
-    // Start is called before the first frame update
     void Start()
     {
-        PlayerTracker.PlayerJoined(this);
+        var trackerObject = GameObject.FindGameObjectWithTag("PlayerTracker");
+        trackerObject.GetComponent<PlayerTracking>().PlayerJoined(this);
+
+        var left = GameObject.FindGameObjectWithTag("LeftGrabber");
+        var right = GameObject.FindGameObjectWithTag("RightGrabber");
+        left.GetComponent<SetObjectBeingGrabbed>().PlayerTag = this.gameObject.tag;
+        right.GetComponent<SetObjectBeingGrabbed>().PlayerTag= this.gameObject.tag;
+
     }
 }
